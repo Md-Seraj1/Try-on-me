@@ -1,0 +1,7 @@
+{
+  "name": "VogueVision AR",
+  "description": "A premium virtual try-on application for jewelry, eyewear, and apparel, featuring AI-powered image editing with Gemini 2.5 Flash.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
