@@ -8,9 +8,10 @@ interface ProductListProps {
   demographic: Demographic;
   onBack: () => void;
   onProductClick: (product: Product) => void;
+  onAddToCart: (product: Product) => void;
 }
 
-const ProductListScreen: React.FC<ProductListProps> = ({ category, demographic, onBack, onProductClick }) => {
+const ProductListScreen: React.FC<ProductListProps> = ({ category, demographic, onBack, onProductClick, onAddToCart }) => {
   const filteredProducts = useMemo(() => {
     return MOCK_PRODUCTS.filter(p => p.category === category && p.demographic === demographic);
   }, [category, demographic]);
@@ -66,14 +67,31 @@ const ProductListScreen: React.FC<ProductListProps> = ({ category, demographic, 
               </div>
               
               <div className="absolute bottom-8 inset-x-8 flex justify-between items-center translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                 <div className="bg-white/95 backdrop-blur-xl px-8 py-4 rounded-[2rem] shadow-2xl flex-1 flex justify-between items-center">
+                 <div className="bg-white/95 backdrop-blur-xl px-8 py-4 rounded-[2rem] shadow-2xl flex-1 flex justify-between items-center gap-4">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-widest text-amber-600">Premium Fit</p>
                       <p className="text-xs text-black font-semibold">AR Virtual Experience Available</p>
                     </div>
-                    <button className="bg-black text-white px-8 py-3 rounded-full text-[9px] font-black uppercase tracking-widest">
+                    <div className="flex gap-2">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddToCart(product);
+                        }}
+                        className="bg-amber-500 text-white px-6 py-3 rounded-full text-[9px] font-black uppercase tracking-widest hover:bg-amber-600 transition-colors"
+                      >
+                        Add to Cart
+                      </button>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onProductClick(product);
+                        }}
+                        className="bg-black text-white px-6 py-3 rounded-full text-[9px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-colors"
+                      >
                        Try-On
                     </button>
+                    </div>
                  </div>
               </div>
             </div>

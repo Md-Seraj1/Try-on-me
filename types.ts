@@ -23,4 +23,9 @@ export interface User {
   avatar?: string;
 }
 
-export type AppScreen = 'SPLASH' | 'ONBOARDING' | 'AUTH' | 'HOME' | 'PRODUCT_LIST' | 'TRY_ON' | 'PROFILE';
+export type AppScreen = 'SPLASH' | 'ONBOARDING' | 'AUTH' | 'HOME' | 'PRODUCT_LIST' | 'TRY_ON' | 'PROFILE' | 'CART';
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}

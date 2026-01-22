@@ -6,9 +6,10 @@ import { editImageWithGemini } from '../services/geminiService';
 interface TryOnProps {
   product: Product | null;
   onBack: () => void;
+  onAddToCart?: (product: Product) => void;
 }
 
-const TryOnScreen: React.FC<TryOnProps> = ({ product, onBack }) => {
+const TryOnScreen: React.FC<TryOnProps> = ({ product, onBack, onAddToCart }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
@@ -224,6 +225,15 @@ const TryOnScreen: React.FC<TryOnProps> = ({ product, onBack }) => {
               </div>
             </div>
 
+            {product && onAddToCart && (
+              <button
+                onClick={() => onAddToCart(product)}
+                className="w-full bg-amber-500 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-amber-600 transition-colors shadow-xl"
+              >
+                Add to Cart
+              </button>
+            )}
+
             <div className="flex justify-center items-center gap-14">
               <button 
                 onClick={() => setShowOverlay(!showOverlay)} 
@@ -283,6 +293,14 @@ const TryOnScreen: React.FC<TryOnProps> = ({ product, onBack }) => {
               <button onClick={() => { setCapturedImage(null); setIsEditing(false); }} className="flex-1 py-4 border border-white/10 rounded-2xl text-white text-[11px] font-black uppercase tracking-widest hover:bg-white/5">
                 Retake
               </button>
+              {product && onAddToCart && (
+                <button 
+                  onClick={() => onAddToCart(product)}
+                  className="flex-1 py-4 bg-amber-500 rounded-2xl text-white text-[11px] font-black uppercase tracking-widest shadow-xl hover:bg-amber-600 transition-colors"
+                >
+                  Add to Cart
+                </button>
+              )}
               <button className="flex-1 py-4 bg-white rounded-2xl text-black text-[11px] font-black uppercase tracking-widest shadow-xl shadow-white/5 hover:bg-gray-100">
                 Share Look
               </button>
